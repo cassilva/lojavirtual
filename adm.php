@@ -5,10 +5,16 @@
 <html lang="pt-br">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
 	<link rel="stylesheet" href="assets/css/estilo.css">
 	<title>Document</title>
 </head>
 <body>
+	<header>
+		<p class="nome-loja">
+			Store
+		</p>
+	</header>
 	<div class="adm-log">
 		<div class="area-restrita">
 			<p>

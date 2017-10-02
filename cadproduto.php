@@ -2,7 +2,7 @@
 #iniciando sessao
 #session_start();
 	include_once('logica.php');
-	
+if($_SESSION['usuario'] == true){	
 	if(isset($_GET['del'])) {
 		$id 	= $_GET['del'];
 		$delete = true;
@@ -29,19 +29,53 @@
 
 			}
 	}#fim do bloco de edicao
+	#sair
+	if(@$_GET['sair']){
+		$fim = session_destroy();
+		header('location: index.php'); 
+	}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
 	<link rel="stylesheet" href="assets/css/estilo.css">
 	<title>Document</title>
+	<script>
+		
+		function abre_fecha(n){
+			minhadiv= document.getElementById('versao-mobile');
+			botao=document.getElementById('botao');
+			if (n==1) {
+				minhadiv.style.height='135px';
+				botao.href='javascript: abre_fecha(0)';
+			}else{
+				minhadiv.style.height='0';
+				botao.href='javascript: abre_fecha(1)';
+			}
+		}
+	</script>
 </head>
 <body>
-	<nav>
+	<header>
+		<p class="nome-loja">
+			Store
+		</p>
+	</header>
+	<nav class="versao-desk">
+		<a href="javascript: abre_fecha(1);"   id="botao"><img src="assets/imagens/menu.png" width="30px"/></a>
 		<ol>
 			<li class="bt-desk"><a href="index.php">Inicio</a></li>
 			<li class="bt-desk"><a class="active" href="cadproduto.php">Cadastrar Produtos</a></li>
+				<li class="bt-desk sair"><a  href="cadproduto.php?sair=<?echo $fim;?>">Sair</a></li>
+		</ol>
+	</nav>
+	<nav id="versao-mobile">
+		<ol>
+			<li class="bt-mobile"><a href="index.php">Inicio</a></li>
+			<li class="bt-mobile"><a class="active" href="cadproduto.php">Cadastrar Produtos</a></li>
+				<li class="bt-mobile sair"><a  href="cadproduto.php?sair=<?echo $fim;?>">Sair</a></li>
 		</ol>
 	</nav>
 
@@ -66,7 +100,7 @@
 		<tr>
 			<th>Produto</th>
 			<th>Descrição</th>
-			<th>Valor R$</th>
+			<th>Valor</th>
 			<th colspan="2">Ação</th>
 		</tr>
 	<?php #laco para listagem de dados 
@@ -132,3 +166,8 @@
 	
 </body>
 </html>
+<?php
+}else{
+	header('location: adm.php');
+}
+?>
