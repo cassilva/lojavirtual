@@ -67,7 +67,7 @@ if(isset($_POST['logcliente'])){
 			if($row == 1){
 				$_SESSION['cliente'] = true;
 				if ($_SESSION['cliente'] == true) {
-					header("Location: carrinho.php");
+					header("Location: index.php");
 				}
 				
 			}else{

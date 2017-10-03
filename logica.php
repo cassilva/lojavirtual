@@ -56,11 +56,13 @@ if (isset($_POST['delproduto'])) {
 
 #finalizar pedido
 			if(isset($_POST['finalizar'])){
-					$valorvenda = mysqli_query($conexao, "INSERT INTO vendas(valor) VALUES('$total')");
+					$valorvenda = mysqli_query($conexao, "INSERT INTO vendas(valor) 
+						VALUES ('$total')");
 
 					$idvenda = mysqli_insert_id($valorvenda);
 
 				foreach ($_SESSION['venda'] as $insertProduto => $qtde):
+
 					$itenscompra = mysqli_query($conexao,"INSERT INTO itensvenda(idvenda, idproduto,qtde) VALUES('$idvenda','$insertProduto','$qtde')");
 
 				endforeach;

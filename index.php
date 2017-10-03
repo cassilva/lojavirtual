@@ -46,25 +46,25 @@
 			<li class="bt-mobile"><a href="login.php">Entrar</a></li>
 		</ol>
 	</nav>
-	<?php #bloco de mensagem
-		if (isset($_SESSION['cliente'])):
-	?>
+<!-- 	<?php #bloco de mensagem
+		#if (isset($_SESSION['cliente'])):
+	?>-->
 		<div class="msgnula">
 			<?php
-				echo "";
+			#	echo "";
 			?>
 		</div>
-	<?php
-		else:
+<!--<?php
+		#else:
 	?>
 		<div class="msg">
 			<?php
-				echo "Para efetuar compras é necessário está logado!";
+				#echo "Para efetuar compras é necessário está logado!";
 			?>
 		</div>
 	<?php
-		endif #fim do bloco de mensagem
-	?>
+		#endif; #fim do bloco de mensagem
+	?> -->
 	<main>
 		
 		
@@ -77,10 +77,11 @@
 		while ($row = mysqli_fetch_array($lista)) {
 			$id = $row['id'];
 		?>
-		
+		<?php 
+			if(@$_SESSION['cliente'] == true):
+		?>
 		<a class="produto-exposto" href="carrinho.php?comprar=<?php echo $row['id']; ?>">
 			<div >
-				<img class="im" src="assets/img_produto/<?=$row->id;?>.jpg" />
 				<h2>  <?php echo $row['produto']; ?></h2>
 				<div class="descricao">
 					<p class="texto-descricao">
@@ -92,7 +93,25 @@
 				</div>
 			</div>
 		</a>
-
+		<?php 
+			else:
+			?>
+					<a class="produto-exposto" href="login.php">
+			<div >
+				<h2>  <?php echo $row['produto']; ?></h2>
+				<div class="descricao">
+					<p class="texto-descricao">
+						<?php echo $row['descricao'];?>
+					</p>
+					<p class="texto-valor">
+						<?php echo 'Preço: R$ '.number_format($row['valor'],2,',','.').'';?>
+					</p>
+				</div>
+			</div>
+		</a>
+		<?php
+			endif;
+		?>
 		<?php
 			}
 		?>

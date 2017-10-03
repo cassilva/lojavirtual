@@ -3,6 +3,7 @@
 #session_start();
 	include_once('logica.php');
 if($_SESSION['cliente'] == true){
+			$total = 0;
 	if(isset($_SESSION['venda'])){
 
 	}else{
@@ -19,9 +20,16 @@ if($_SESSION['cliente'] == true){
 	}
 
 	#quando clica em 1 item
+	
+	$qtd=0;
 	if(@$_GET['comprar']){
 		$produtovenda = $_GET['comprar'];
-		$_SESSION['venda'] [$produtovenda] = 1;
+		$qtd=1;
+		if(isset($produtovenda)){
+			$_SESSION['venda'] [$produtovenda] = $qtd;
+		}else{
+			$_SESSION['venda'] [$produtovenda] = $qtd;
+		}
 	}
 	#finalizando sessao
 	if(@$_GET['sair']){
@@ -111,7 +119,19 @@ if($_SESSION['cliente'] == true){
 								<td>
 									<?php echo $res['descricao'];?>
 								</td>
-								<td><?php echo $qtde; ?>
+								 <td><?php
+
+								// if ($res['id'] == 0){
+								// 	$qtde;
+								// }
+								// if(isset($res['id'])){
+								// $qtdprod	= mysqli_query($conexao,"SELECT * FROM produtos WHERE id = $prod"); 
+								// #$row = mysqli_num_rows($qtdprod);
+								// while($row = mysqli_num_rows($qtdprod)){
+								// 	$qtde += 1;	
+								// }
+								// }
+								echo $qtde; ?>
 								</td>
 								<td>
 									<?php echo ''.number_format($res['valor'],2,',','.').'';?>
@@ -121,14 +141,23 @@ if($_SESSION['cliente'] == true){
 								</td>
 							</tr>
 					<?php
-						@$total += $res['valor'] * $qtde;
+						
+						if($res['id']==0){
+							$total = 0;
+						}else{
+							$total += $res['valor'] * $qtde;
+						}
 						endforeach;
 					?>  
 							<tr>
-								<td colspan="5" class="total">Total:<?php echo ' ' .number_format(@$total,2,',','.');?> </td>
+								<td colspan="5" class="total">Total:<?php 
+									
+								echo ' ' .number_format($total,2,',','.');
+
+								?> </td>
 							</tr>
 				</table>
-			
+				
 				<div class="btn-comprar">
 					<button class="btn edt"  type="button" name="contcompra" onclick="location.href='index.php'">Continuar comprando</button>
 					<button class="btn"  type="submit" name="finalizar">Finalizar compra</button>
